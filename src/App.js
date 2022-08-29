@@ -5,6 +5,7 @@ const App = () => {
     return (
         <div className='container'>
             <h1 className='mt-3'>Budget Tracker</h1>
+            <p>pushin p</p>
         </div>
     )
 }
