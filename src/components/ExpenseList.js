@@ -4,11 +4,11 @@ import ExpenseItem from "./ExpenseItem";
 const ExpenseList = () => {
     const expenses = [
         { id: 1, name: "Rent", cost: 715 },
-        { id: 1, name: "Hydro", cost: 25 },
-        { id: 1, name: "Groceries", cost: 100 },
-        { id: 1, name: "Phone", cost: 56 },
-        { id: 1, name: "Eating Out", cost: 150 },
-        {id: 1, name: "Haircut", cost: 30}
+        { id: 2, name: "Hydro", cost: 25 },
+        { id: 3, name: "Groceries", cost: 100 },
+        { id: 4, name: "Phone", cost: 56 },
+        { id: 5, name: "Eating Out", cost: 150 },
+        {id: 6, name: "Haircut", cost: 30}
     ];
 
     return (
