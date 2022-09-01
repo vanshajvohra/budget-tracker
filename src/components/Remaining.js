@@ -10,7 +10,7 @@ const App = () => {
     const alertType = totalExpenses > budget ? 'alert-danger' : 'alert-secondary';
 
     return (
-        <div className={`alert p-3 ${alertType}`}>
+        <div className={`alert p-4 ${alertType}`}>
             <span>Remaining: ${budget - totalExpenses}</span>
         </div>
     )

@@ -10,7 +10,7 @@ const App = () => {
     const alertTypetwo = total > 1000 ? 'alert-warning' : 'alert-success';
 
     return (
-        <div className={`alert p-3 ${alertTypetwo}`}>
+        <div className={`alert p-4 ${alertTypetwo}`}>
             <span>Total Spent: ${total}</span>
         </div>
     )
