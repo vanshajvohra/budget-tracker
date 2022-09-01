@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 
 // reducer used to update the state, based on the action done by the user
+// check useReducer documentation for more
 const AppReducer = (state, action) => {
     switch(action.type){
         case 'ADD_EXPENSE':
