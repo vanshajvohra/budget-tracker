@@ -3,6 +3,11 @@ import React, { createContext, useReducer } from "react";
 // reducer used to update the state, based on the action done by the user
 const AppReducer = (state, action) => {
     switch(action.type){
+        case 'ADD_EXPENSE':
+            return {
+                ...state,
+                expenses: [...state.expenses, action.payload]
+            }
         default: return state;
     }
 };
