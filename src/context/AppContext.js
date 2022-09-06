@@ -1,7 +1,6 @@
 import React, { createContext, useReducer } from "react";
 
-// reducer used to update the state, based on the action done by the user
-// check useReducer documentation for more
+// AppReducer updates the state, based on the action done by the user
 const AppReducer = (state, action) => {
     switch(action.type){
         case 'ADD_EXPENSE':
@@ -25,7 +24,7 @@ const AppReducer = (state, action) => {
     }
 };
 
-// initial state when the app loads
+// initialState are the initial values that show up when the app loads
 const initialState = {
     budget: 1250,
     expenses: [
@@ -37,7 +36,7 @@ const initialState = {
 // creating the context
 export const AppContext = createContext();
 
-// provider component -  wrapping the components we want to give access to the state
+// AppProvider wraps the components we want to give access to the state
 export const AppProvider = (props) => {
     // setting up the app state
     const [state, dispatch] = useReducer(AppReducer, initialState);
