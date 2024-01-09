@@ -7,7 +7,12 @@ const App = () => {
         return (total = total + item.cost);
     }, 0);
 
-    const alertType = totalExpenses > budget ? 'alert-danger' : 'alert-secondary';
+    let alertType = 'alert-secondary';
+    if (totalExpenses > (0.75*budget) && totalExpenses < (0.9*budget)) {
+        alertType = 'alert-warning'
+    } else if (totalExpenses > (0.9*budget)) {
+        alertType = 'alert-danger'
+    }
 
     return (
         <div className={`alert p-4 ${alertType}`}>
