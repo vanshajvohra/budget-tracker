@@ -11,6 +11,7 @@ const AppReducer = (state, action) => {
             localStorage.setItem("expense", JSON.stringify(newExpense))
             return newExpense;
         case 'DELETE_EXPENSE':
+            localStorage.removeItem(newExpense)
             return {
                 ...state,
                 expenses: state.expenses.filter(
