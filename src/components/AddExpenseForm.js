@@ -1,4 +1,4 @@
-t import React, { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { v4 as uuidv4 } from "uuid"; // uuidv4 generates a random ID for each new expense
 

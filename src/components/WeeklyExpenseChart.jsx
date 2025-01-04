@@ -5,46 +5,37 @@ import { AppContext } from "../context/AppContext";
 const WeeklyExpenseChart = () => {
   const { expenses } = useContext(AppContext);
 
-  // Group expenses by day and calculate daily totals
-  const getDailyData = () => {
-    const today = new Date();
-    const lastWeek = Array.from({ length: 7 }, (_, i) => {
-      const date = new Date(today);
-      date.setDate(today.getDate() - (6 - i));
-      return date.toISOString().split('T')[0];
-    });
-
-    // Initialize daily totals with 0
-    const dailyTotals = lastWeek.reduce((acc, date) => {
-      acc[date] = 0;
+  // Group expenses by name and calculate totals
+  const getExpensesByCategory = () => {
+    const categoryTotals = expenses.reduce((acc, expense) => {
+      // If this category exists, add to its total, otherwise create new category
+      acc[expense.name] = (acc[expense.name] || 0) + expense.cost;
       return acc;
     }, {});
 
-    // Sum up costs for each day
-    expenses.forEach(expense => {
-      // Since your expenses don't seem to have dates, 
-      // we'll distribute them evenly across the week for demo purposes
-      const randomDay = lastWeek[Math.floor(Math.random() * lastWeek.length)];
-      dailyTotals[randomDay] += expense.cost;
-    });
-
-    return Object.entries(dailyTotals).map(([date, amount]) => ({
-      date: new Date(date).toLocaleDateString('en-US', { weekday: 'short' }),
-      amount: amount
+    // Convert to array format for Recharts
+    return Object.entries(categoryTotals).map(([name, total]) => ({
+      name: name,
+      amount: total
     }));
   };
 
   return (
     <div className="mt-4 mb-4">
-      <h3 className="mb-3">Expense Breakdown</h3>
+      <h3 className="mb-3">Expense Categories</h3>
       <div style={{ height: '300px' }}>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={getDailyData()}>
+          <BarChart data={getExpensesByCategory()}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
+            <XAxis 
+              dataKey="name"
+              angle={-45}
+              textAnchor="end"
+              height={60}
+            />
             <YAxis />
             <Tooltip formatter={(value) => `$${value}`} />
-            <Bar dataKey="amount" fill="#0d6efd" /> {/* Using Bootstrap primary color */}
+            <Bar dataKey="amount" fill="#0d6efd" />
           </BarChart>
         </ResponsiveContainer>
       </div>
