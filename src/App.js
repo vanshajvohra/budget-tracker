@@ -6,6 +6,7 @@ import ExpenseTotal from './components/ExpenseTotal';
 import ExpenseList from './components/ExpenseList';
 import AddExpenseForm from './components/AddExpenseForm';
 import { AppProvider } from './context/AppContext';
+import WeeklyExpenseChart from './components/WeeklyExpenseChart';
 
 const App = () => {
     return (
@@ -37,6 +38,7 @@ const App = () => {
                     <AddExpenseForm />
                 </div>
             </div>
+            <WeeklyExpenseChart />
         </div>
         </AppProvider>
     )
