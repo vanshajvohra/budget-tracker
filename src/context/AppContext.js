@@ -2,33 +2,44 @@ import React, { createContext, useReducer } from "react";
 
 // AppReducer updates the state, based on the action done by the user
 const AppReducer = (state, action) => {
+    let newState;
     switch(action.type){
         case 'ADD_EXPENSE':
-            const newExpense = {
+            newState = {
                 ...state,
                 expenses: [...state.expenses, action.payload]
-            }
-            localStorage.setItem("expense", JSON.stringify(newExpense))
-            return newExpense;
+            };
+            // Save entire state to localStorage
+            localStorage.setItem("budgetState", JSON.stringify(newState));
+            return newState;
+
         case 'DELETE_EXPENSE':
-            localStorage.removeItem(newExpense)
-            return {
+            newState = {
                 ...state,
                 expenses: state.expenses.filter(
                     (expense) => expense.id !== action.payload
                 ),
             };
+            // Save updated state after deletion
+            localStorage.setItem("budgetState", JSON.stringify(newState));
+            return newState;
+
         case 'SET_BUDGET':
-            return {
+            newState = {
                 ...state,
                 budget: action.payload,
             };
-        default: return state;
+            // Save updated state after budget change
+            localStorage.setItem("budgetState", JSON.stringify(newState));
+            return newState;
+
+        default: 
+            return state;
     }
 };
 
-// initialState are the initial values that show up when the app loads
-const initialState = {
+// Initial default values if no stored data exists
+const defaultState = {
     budget: 1250,
     expenses: [
         { id: 22, name: 'Rent', cost: 725},
@@ -36,22 +47,29 @@ const initialState = {
     ],
 };
 
+// Get state from localStorage or use default
+const getInitialState = () => {
+    const savedState = localStorage.getItem("budgetState");
+    return savedState ? JSON.parse(savedState) : defaultState;
+};
+
 // creating the context
 export const AppContext = createContext();
 
-const getInitialState = () => {
-    const expense = localStorage.getItem("expense");
-    return expense ? JSON.parse(expense) : initialState;
-  };
-
 // AppProvider wraps the components we want to give access to the state
 export const AppProvider = (props) => {
-    // setting up the app state
-    const [state, dispatch] = useReducer(AppReducer, initialState);
+    // setting up the app state with persisted data
+    const [state, dispatch] = useReducer(AppReducer, getInitialState());
 
-    // returns the context by passing in the values we want to expose
     return(
-    <AppContext.Provider value={{budget: state.budget, expenses: state.expenses, dispatch,}}>
-        {props.children}
-    </AppContext.Provider>)
+        <AppContext.Provider 
+            value={{
+                budget: state.budget, 
+                expenses: state.expenses, 
+                dispatch,
+            }}
+        >
+            {props.children}
+        </AppContext.Provider>
+    );
 };
