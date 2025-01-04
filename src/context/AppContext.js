@@ -4,11 +4,14 @@ import React, { createContext, useReducer } from "react";
 const AppReducer = (state, action) => {
     switch(action.type){
         case 'ADD_EXPENSE':
-            return {
+            const newExpense = {
                 ...state,
                 expenses: [...state.expenses, action.payload]
             }
+            localStorage.setItem("expense", JSON.stringify(newExpense))
+            return newExpense;
         case 'DELETE_EXPENSE':
+            localStorage.removeItem(newExpense)
             return {
                 ...state,
                 expenses: state.expenses.filter(
@@ -36,17 +39,19 @@ const initialState = {
 // creating the context
 export const AppContext = createContext();
 
+const getInitialState = () => {
+    const expense = localStorage.getItem("expense");
+    return expense ? JSON.parse(expense) : initialState;
+  };
+
 // AppProvider wraps the components we want to give access to the state
 export const AppProvider = (props) => {
     // setting up the app state
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
     // returns the context by passing in the values we want to expose
-    return(<AppContext.Provider value={{
-        budget: state.budget,
-        expenses: state.expenses,
-        dispatch,
-    }}>
+    return(
+    <AppContext.Provider value={{budget: state.budget, expenses: state.expenses, dispatch,}}>
         {props.children}
     </AppContext.Provider>)
 };
