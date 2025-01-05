@@ -7,12 +7,16 @@ import ExpenseList from './components/ExpenseList';
 import AddExpenseForm from './components/AddExpenseForm';
 import { AppProvider } from './context/AppContext';
 import WeeklyExpenseChart from './components/WeeklyExpenseChart';
+import ClearAllButton from './components/ClearAllButton';
 
 const App = () => {
     return (
         <AppProvider>
         <div className='container'>
-            <h1 className='mt-3'>Expend</h1>
+            <div className='d-flex justify-content-between align-items-center mt-3'>
+                <h1>Expend</h1>
+                <ClearAllButton />
+            </div>
             <div className='row mt-3'>
                 <div className='col-sm'>
                     <Budget />

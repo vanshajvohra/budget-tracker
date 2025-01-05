@@ -33,6 +33,15 @@ const AppReducer = (state, action) => {
             localStorage.setItem("budgetState", JSON.stringify(newState));
             return newState;
 
+        case 'CLEAR_ALL':
+            newState = {
+                ...state,
+                expenses: [],
+                budget: defaultState.budget // Reset to default budget
+            };
+            localStorage.setItem("budgetState", JSON.stringify(newState));
+            return newState;
+
         default: 
             return state;
     }
