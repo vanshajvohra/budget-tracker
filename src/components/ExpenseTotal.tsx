@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
-const App = () => {
+const ExpenseTotal: React.FC = () => {
     const { expenses, budget } = useContext(AppContext);
     const total = expenses.reduce((total, item) => {
-		return (total = total + item.cost);
+        return total + item.cost;
     }, 0);
 
-    // const alertTypetwo = total > 1000 ? 'alert-warning' : 'alert-success';
     let alertTypetwo = 'alert-success';
-    if (total > (0.9*budget) && total < budget) {
+    if (total > (0.9 * budget) && total < budget) {
         alertTypetwo = 'alert-warning'
     } else if (total > budget) {
         alertTypetwo = 'alert-danger'
@@ -22,4 +21,4 @@ const App = () => {
     )
 }
 
-export default App;
+export default ExpenseTotal;
