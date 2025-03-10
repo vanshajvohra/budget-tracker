@@ -14,7 +14,7 @@ const App: React.FC = () => {
         <AppProvider>
             <div className='container'>
                 <div className='d-flex justify-content-between align-items-center mt-3'>
-                    <h1>Expend</h1>
+                    <h1>Expense Tracker</h1>
                     <ClearAllButton />
                 </div>
                 <div className='row mt-3'>
